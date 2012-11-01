@@ -124,6 +124,9 @@ wireToPropertyEvent(xXIPropertyEvent *in, XGenericEventCookie *cookie);
 static int
 wireToTouchOwnershipEvent(xXITouchOwnershipEvent *in,
                           XGenericEventCookie *cookie);
+static int
+wireToBarrierNotifyEvent(xXIBarrierNotifyEvent *in,
+                         XGenericEventCookie *cookie);
 
 static /* const */ XEvent emptyevent;
 
@@ -1022,6 +1025,16 @@ XInputWireToCookie(
                 break;
             }
             return ENQUEUE_EVENT;
+        case XI_BarrierHitNotify:
+        case XI_BarrierPointerReleasedNotify:
+            *cookie = *(XGenericEventCookie*)save;
+            if (!wireToBarrierNotifyEvent((xXIBarrierNotifyEvent*)event, cookie))
+            {
+                printf("XInputWireToCookie: CONVERSION FAILURE!  evtype=%d\n",
+                        ge->evtype);
+                break;
+            }
+            return ENQUEUE_EVENT;
         default:
             printf("XInputWireToCookie: Unknown generic event. type %d\n", ge->evtype);
 
@@ -1403,7 +1416,21 @@ copyRawEvent(XGenericEventCookie *cookie_in,
     return True;
 }
 
+static Bool
+copyBarrierNotifyEvent(XGenericEventCookie *in_cookie,
+                       XGenericEventCookie *out_cookie)
+{
+    XIBarrierNotifyEvent *in, *out;
 
+    in = in_cookie->data;
+
+    out = out_cookie->data = calloc(1, sizeof(XIBarrierNotifyEvent));
+    if (!out)
+        return False;
+    *out = *in;
+
+    return True;
+}
 
 static Bool
 XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out)
@@ -1458,6 +1485,10 @@ XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out
         case XI_RawButtonRelease:
         case XI_RawMotion:
             ret = copyRawEvent(in, out);
+            break;
+        case XI_BarrierHitNotify:
+        case XI_BarrierPointerReleasedNotify:
+            ret = copyBarrierNotifyEvent(in, out);
             break;
         default:
             printf("XInputCopyCookie: unknown evtype %d\n", in->evtype);
@@ -1955,6 +1986,35 @@ wireToTouchOwnershipEvent(xXITouchOwnershipEvent *in,
     out->event          = in->event;
     out->child          = in->child;
     out->flags          = in->flags;
+
+    return 1;
+}
+
+#define FP3232_TO_DOUBLE(x) ((double) (x).integral + (x).frac / (1 << 16) / (1 << 16))
+
+static int
+wireToBarrierNotifyEvent(xXIBarrierNotifyEvent *in, XGenericEventCookie *cookie)
+{
+    XIBarrierNotifyEvent *out = malloc(sizeof(XIBarrierNotifyEvent));
+
+    out = cookie->data = calloc(1, sizeof(XIBarrierNotifyEvent));
+
+    out->display = cookie->display;
+    out->type = in->type;
+    out->extension = in->extension;
+    out->evtype = in->evtype;
+
+    out->x = in->x;
+    out->y = in->y;
+
+    out->dx = FP3232_TO_DOUBLE (in->dx);
+    out->dy = FP3232_TO_DOUBLE (in->dy);
+    out->raw_dx = FP3232_TO_DOUBLE (in->raw_dx);
+    out->raw_dy = FP3232_TO_DOUBLE (in->raw_dy);
+    out->dt = in->dt;
+    out->barrier = in->barrier;
+    out->event_id = in->event_id;
+    out->time = in->time;
 
     return 1;
 }

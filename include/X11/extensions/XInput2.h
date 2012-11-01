@@ -328,6 +328,31 @@ typedef struct {
     int           flags;
 } XITouchOwnershipEvent;
 
+typedef XID PointerBarrier;
+typedef int32_t BarrierEventID;
+
+typedef struct {
+    int           type;         /* GenericEvent */
+    unsigned long serial;       /* # of last request processed by server */
+    Bool          send_event;   /* true if this came from a SendEvent request */
+    Display       *display;     /* Display the event was read from */
+    int           extension;    /* XI extension offset */
+    int           evtype;
+    Time          time;
+    int           deviceid;
+    int           sourceid;
+    Window        window;
+    int           x;
+    int           y;
+    double        dx;
+    double        dy;
+    double        raw_dx;
+    double        raw_dy;
+    int           dt;
+    PointerBarrier barrier;
+    BarrierEventID event_id;
+} XIBarrierNotifyEvent;
+
 _XFUNCPROTOBEGIN
 
 extern Bool     XIQueryPointer(
@@ -601,6 +626,21 @@ XIGetProperty(
     unsigned long       *num_items_return,
     unsigned long       *bytes_after_return,
     unsigned char       **data
+);
+
+extern void
+XIBarrierReleasePointerFull(
+    Display*            display,
+    int                 num_barriers,
+    PointerBarrier      *barriers,
+    unsigned long       *eventIDs
+);
+
+extern void
+XIBarrierReleasePointer(
+    Display*            display,
+    PointerBarrier      barrier,
+    unsigned long       eventID
 );
 
 extern void XIFreeDeviceInfo(XIDeviceInfo       *info);
