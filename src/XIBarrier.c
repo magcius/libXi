@@ -37,7 +37,8 @@ void
 XIBarrierReleasePointerFull (Display *dpy,
                              int num_barriers,
                              PointerBarrier *barriers,
-                             unsigned long  *eventids)
+                             unsigned long  *eventids,
+                             int            *deviceids)
 {
     XExtDisplayInfo	        *info = XInput_find_display (dpy);
     xXIBarrierReleasePointerReq *req;
@@ -48,7 +49,7 @@ XIBarrierReleasePointerFull (Display *dpy,
     if (!num_barriers)
         return;
 
-    extra = (num_barriers * 8);
+    extra = (num_barriers * 12);
 
     LockDisplay (dpy);
     GetReqExtra (XIBarrierReleasePointer, extra, req);
@@ -60,6 +61,7 @@ XIBarrierReleasePointerFull (Display *dpy,
     for (i = 0; i < num_barriers; i++) {
         *(p++) = barriers[i];
         *(p++) = eventids[i];
+        *(p++) = deviceids[i];
     }
 
     UnlockDisplay (dpy);
@@ -69,7 +71,8 @@ XIBarrierReleasePointerFull (Display *dpy,
 void
 XIBarrierReleasePointer (Display *dpy,
                          PointerBarrier barrier,
-                         unsigned long  eventid)
+                         unsigned long  eventid,
+                         int            deviceid)
 {
-    XIBarrierReleasePointerFull (dpy, 1, &barrier, &eventid);
+    XIBarrierReleasePointerFull (dpy, 1, &barrier, &eventid, &deviceid);
 }
