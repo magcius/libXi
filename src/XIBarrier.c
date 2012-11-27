@@ -48,7 +48,7 @@ XIBarrierReleasePointerFull (Display *dpy,
     if (!num_barriers)
         return;
 
-    extra = (num_barriers * (sizeof(*eventids) + sizeof(PointerBarrier)));
+    extra = (num_barriers * 8);
 
     LockDisplay (dpy);
     GetReqExtra (XIBarrierReleasePointer, extra, req);
