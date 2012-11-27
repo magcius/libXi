@@ -633,14 +633,14 @@ XIBarrierReleasePointerFull(
     Display*            display,
     int                 num_barriers,
     PointerBarrier      *barriers,
-    unsigned long       *eventIDs
+    unsigned long       *eventids
 );
 
 extern void
 XIBarrierReleasePointer(
     Display*            display,
     PointerBarrier      barrier,
-    unsigned long       eventID
+    unsigned long       eventid
 );
 
 extern void XIFreeDeviceInfo(XIDeviceInfo       *info);
