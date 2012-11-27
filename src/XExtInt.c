@@ -1027,6 +1027,7 @@ XInputWireToCookie(
             return ENQUEUE_EVENT;
         case XI_BarrierHitNotify:
         case XI_BarrierPointerReleasedNotify:
+        case XI_BarrierNewEventNotify:
             *cookie = *(XGenericEventCookie*)save;
             if (!wireToBarrierNotifyEvent((xXIBarrierNotifyEvent*)event, cookie))
             {
@@ -1488,6 +1489,7 @@ XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out
             break;
         case XI_BarrierHitNotify:
         case XI_BarrierPointerReleasedNotify:
+        case XI_BarrierNewEventNotify:
             ret = copyBarrierNotifyEvent(in, out);
             break;
         default:
