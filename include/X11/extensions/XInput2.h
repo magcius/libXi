@@ -351,7 +351,7 @@ typedef struct {
     int           dt;
     PointerBarrier barrier;
     BarrierEventID event_id;
-} XIBarrierNotifyEvent;
+} XIBarrierEvent;
 
 _XFUNCPROTOBEGIN
 
