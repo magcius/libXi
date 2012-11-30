@@ -2005,7 +2005,10 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->type = in->type;
     out->extension = in->extension;
     out->evtype = in->evtype;
-
+    out->send_event     = ((in->type & 0x80) != 0);
+    out->time = in->time;
+    out->deviceid = in->deviceid;
+    out->sourceid = in->sourceid;
     out->window = in->window;
     out->root = in->root;
     out->root_x = in->root_x;
@@ -2017,7 +2020,6 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->dt = in->dt;
     out->barrier = in->barrier;
     out->event_id = in->event_id;
-    out->time = in->time;
 
     return 1;
 }
