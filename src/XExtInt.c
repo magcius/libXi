@@ -1999,7 +1999,7 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
 {
     XIBarrierEvent *out = malloc(sizeof(XIBarrierEvent));
 
-    out = cookie->data = calloc(1, sizeof(XIBarrierEvent));
+    cookie->data = out;
 
     out->display = cookie->display;
     out->type = in->type;
