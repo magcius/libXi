@@ -2001,25 +2001,25 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
 
     cookie->data = out;
 
-    out->display = cookie->display;
-    out->type = in->type;
-    out->extension = in->extension;
-    out->evtype = in->evtype;
-    out->send_event     = ((in->type & 0x80) != 0);
-    out->time = in->time;
-    out->deviceid = in->deviceid;
-    out->sourceid = in->sourceid;
-    out->window = in->window;
-    out->root = in->root;
-    out->root_x = in->root_x;
-    out->root_y = in->root_y;
-    out->dx = FP3232_TO_DOUBLE (in->dx);
-    out->dy = FP3232_TO_DOUBLE (in->dy);
-    out->raw_dx = FP3232_TO_DOUBLE (in->raw_dx);
-    out->raw_dy = FP3232_TO_DOUBLE (in->raw_dy);
-    out->dt = in->dt;
-    out->barrier = in->barrier;
-    out->event_id = in->event_id;
+    out->display    = cookie->display;
+    out->type       = in->type;
+    out->extension  = in->extension;
+    out->evtype     = in->evtype;
+    out->send_event = ((in->type & 0x80) != 0);
+    out->time       = in->time;
+    out->deviceid   = in->deviceid;
+    out->sourceid   = in->sourceid;
+    out->window     = in->window;
+    out->root       = in->root;
+    out->root_x     = in->root_x;
+    out->root_y     = in->root_y;
+    out->dx         = FP3232_TO_DOUBLE (in->dx);
+    out->dy         = FP3232_TO_DOUBLE (in->dy);
+    out->raw_dx     = FP3232_TO_DOUBLE (in->raw_dx);
+    out->raw_dy     = FP3232_TO_DOUBLE (in->raw_dy);
+    out->dt         = in->dt;
+    out->barrier    = in->barrier;
+    out->event_id   = in->event_id;
 
     return 1;
 }
