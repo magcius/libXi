@@ -2006,6 +2006,9 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->extension = in->extension;
     out->evtype = in->evtype;
 
+    out->x = in->x;
+    out->y = in->y;
+
     out->dx = FP3232_TO_DOUBLE (in->dx);
     out->dy = FP3232_TO_DOUBLE (in->dy);
     out->raw_dx = FP3232_TO_DOUBLE (in->raw_dx);
