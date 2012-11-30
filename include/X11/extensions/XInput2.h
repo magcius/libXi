@@ -342,8 +342,8 @@ typedef struct {
     int           deviceid;
     int           sourceid;
     Window        window;
-    int           x;
-    int           y;
+    int           root_x;
+    int           root_y;
     double        dx;
     double        dy;
     double        raw_dx;
