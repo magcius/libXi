@@ -70,9 +70,9 @@ XIBarrierReleasePointerFull (Display *dpy,
 
 void
 XIBarrierReleasePointer (Display *dpy,
+                         int            deviceid,
                          PointerBarrier barrier,
-                         unsigned long  eventid,
-                         int            deviceid)
+                         unsigned long  eventid)
 {
     XIBarrierReleasePointerFull (dpy, 1, &barrier, &eventid, &deviceid);
 }
