@@ -343,8 +343,8 @@ typedef struct {
     int           sourceid;
     Window        window;
     Window        root;
-    int           root_x;
-    int           root_y;
+    double        root_x;
+    double        root_y;
     double        dx;
     double        dy;
     double        raw_dx;

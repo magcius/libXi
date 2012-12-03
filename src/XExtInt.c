@@ -2011,8 +2011,8 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->sourceid   = in->sourceid;
     out->window     = in->window;
     out->root       = in->root;
-    out->root_x     = in->root_x;
-    out->root_y     = in->root_y;
+    out->root_x     = FP1616toDBL(in->root_x);
+    out->root_y     = FP1616toDBL(in->root_y);
     out->dx         = FP3232_TO_DOUBLE (in->dx);
     out->dy         = FP3232_TO_DOUBLE (in->dy);
     out->raw_dx     = FP3232_TO_DOUBLE (in->raw_dx);
