@@ -350,6 +350,7 @@ typedef struct {
     double        raw_dx;
     double        raw_dy;
     int           dt;
+    int           flags;
     PointerBarrier barrier;
     BarrierEventID event_id;
 } XIBarrierEvent;

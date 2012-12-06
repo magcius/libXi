@@ -1026,7 +1026,6 @@ XInputWireToCookie(
             }
             return ENQUEUE_EVENT;
         case XI_BarrierHit:
-        case XI_BarrierPointerReleased:
         case XI_BarrierLeave:
             *cookie = *(XGenericEventCookie*)save;
             if (!wireToBarrierEvent((xXIBarrierEvent*)event, cookie))
@@ -1488,7 +1487,6 @@ XInputCopyCookie(Display *dpy, XGenericEventCookie *in, XGenericEventCookie *out
             ret = copyRawEvent(in, out);
             break;
         case XI_BarrierHit:
-        case XI_BarrierPointerReleased:
         case XI_BarrierLeave:
             ret = copyBarrierEvent(in, out);
             break;
@@ -2018,6 +2016,7 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->raw_dx     = FP3232_TO_DOUBLE (in->raw_dx);
     out->raw_dy     = FP3232_TO_DOUBLE (in->raw_dy);
     out->dt         = in->dt;
+    out->flags      = in->flags;
     out->barrier    = in->barrier;
     out->event_id   = in->event_id;
 
