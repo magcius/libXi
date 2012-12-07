@@ -169,6 +169,16 @@ typedef struct
     int                 status;
 } XIGrabModifiers;
 
+typedef XID PointerBarrier;
+typedef int32_t BarrierEventID;
+
+typedef struct
+{
+    int                 deviceid;
+    PointerBarrier      barrier;
+    BarrierEventID      eventid;
+} XIBarrierReleasePointerInfo;
+
 /**
  * Generic XI2 event. All XI2 events have the same header.
  */
@@ -327,9 +337,6 @@ typedef struct {
     Window        child;
     int           flags;
 } XITouchOwnershipEvent;
-
-typedef XID PointerBarrier;
-typedef int32_t BarrierEventID;
 
 typedef struct {
     int           type;         /* GenericEvent */
@@ -629,20 +636,18 @@ XIGetProperty(
 );
 
 extern void
-XIBarrierReleasePointerFull(
-    Display*            display,
-    int                 num_barriers,
-    PointerBarrier      *barriers,
-    unsigned long       *eventids,
-    int                 *deviceids
+XIBarrierReleasePointers(
+    Display*                    display,
+    XIBarrierReleasePointerInfo *barriers,
+    int                         num_barriers
 );
 
 extern void
 XIBarrierReleasePointer(
-    Display*            display,
-    int                 deviceid,
-    PointerBarrier      barrier,
-    unsigned long       eventid
+    Display*                    display,
+    int                         deviceid,
+    PointerBarrier              barrier,
+    BarrierEventID              eventid
 );
 
 extern void XIFreeDeviceInfo(XIDeviceInfo       *info);
