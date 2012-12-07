@@ -2007,18 +2007,16 @@ wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
     out->time       = in->time;
     out->deviceid   = in->deviceid;
     out->sourceid   = in->sourceid;
-    out->window     = in->window;
+    out->event      = in->event;
     out->root       = in->root;
     out->root_x     = FP1616toDBL(in->root_x);
     out->root_y     = FP1616toDBL(in->root_y);
     out->dx         = FP3232_TO_DOUBLE (in->dx);
     out->dy         = FP3232_TO_DOUBLE (in->dy);
-    out->raw_dx     = FP3232_TO_DOUBLE (in->raw_dx);
-    out->raw_dy     = FP3232_TO_DOUBLE (in->raw_dy);
-    out->dt         = in->dt;
+    out->dtime      = in->dtime;
     out->flags      = in->flags;
     out->barrier    = in->barrier;
-    out->event_id   = in->event_id;
+    out->eventid    = in->eventid;
 
     return 1;
 }

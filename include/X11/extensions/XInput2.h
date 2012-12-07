@@ -341,18 +341,16 @@ typedef struct {
     Time          time;
     int           deviceid;
     int           sourceid;
-    Window        window;
+    Window        event;
     Window        root;
     double        root_x;
     double        root_y;
     double        dx;
     double        dy;
-    double        raw_dx;
-    double        raw_dy;
-    int           dt;
+    int           dtime;
     int           flags;
     PointerBarrier barrier;
-    BarrierEventID event_id;
+    BarrierEventID eventid;
 } XIBarrierEvent;
 
 _XFUNCPROTOBEGIN
