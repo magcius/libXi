@@ -170,7 +170,7 @@ typedef struct
 } XIGrabModifiers;
 
 typedef XID PointerBarrier;
-typedef uint32_t BarrierEventID;
+typedef unsigned int BarrierEventID;
 
 typedef struct
 {
