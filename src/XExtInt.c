@@ -1990,7 +1990,7 @@ wireToTouchOwnershipEvent(xXITouchOwnershipEvent *in,
     return 1;
 }
 
-#define FP3232_TO_DOUBLE(x) ((double) (x).integral + (x).frac / (1 << 16) / (1 << 16))
+#define FP3232_TO_DOUBLE(x) ((double) (x).integral + (x).frac / (1ULL << 32))
 
 static int
 wireToBarrierEvent(xXIBarrierEvent *in, XGenericEventCookie *cookie)
